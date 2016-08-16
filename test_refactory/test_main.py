@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import unittest
-from src_refactory.main import tabela_de_preco, define_cimento, cotacao_por_m2, \
+from src_refactory.prices import Prices
+from src_refactory.main import define_cimento, cotacao_por_m2, \
     main
 
 
@@ -9,21 +10,7 @@ class MainTests(unittest.TestCase):
 
     def setUp(self):
         self.configuracao = {}
-
-    def test_tabela_precos(self):
-        tabela = tabela_de_preco()
-        self.assertIn('tijolo', tabela)
-        self.assertIn('cimento', tabela)
-
-        tabela_tijolos = tabela['tijolo']
-        self.assertIn('4 furos', tabela_tijolos)
-        self.assertIn('8 furos', tabela_tijolos)
-        self.assertIn('12 furos', tabela_tijolos)
-
-        tabela_cimentos = tabela['cimento']
-        self.assertIn('fino', tabela_cimentos)
-        self.assertIn('medio', tabela_cimentos)
-        self.assertIn('forte', tabela_cimentos)
+        self.prices = Prices()
 
     def test_define_cimento_fino(self):
         self.configuracao['tijolo'] = '4 furos'
@@ -62,34 +49,30 @@ class MainTests(unittest.TestCase):
         define_cimento(self.configuracao)
         cotacao = cotacao_por_m2(self.configuracao)
 
-        precos = tabela_de_preco()
-        preco_tijolo = precos['tijolo']['12 furos']
-        preco_cimento = precos['cimento']['forte']
+        preco_tijolo = self.prices.brick_for('12 furos')
+        preco_cimento = self.prices.cement_for('forte')
 
         self.assertEqual(cotacao, preco_tijolo + preco_cimento)
 
     def test_calcula_para_ate_tres_andares(self):
-        precos = tabela_de_preco()
-        preco_tijolo = precos['tijolo']['4 furos']
-        preco_cimento = precos['cimento']['fino']
+        preco_tijolo = self.prices.brick_for('4 furos')
+        preco_cimento = self.prices.cement_for('fino')
 
         for andar in range(1, 4):
             cotacao = main(andares=andar)
             self.assertEqual(cotacao, preco_cimento + preco_tijolo)
 
     def test_calcula_de_quatro_a_dez_andares(self):
-        precos = tabela_de_preco()
-        preco_tijolo = precos['tijolo']['8 furos']
-        preco_cimento = precos['cimento']['medio']
+        preco_tijolo = self.prices.brick_for('8 furos')
+        preco_cimento = self.prices.cement_for('medio')
 
         for andar in range(4, 11):
             cotacao = main(andares=andar)
             self.assertEqual(cotacao, preco_cimento + preco_tijolo)
 
     def test_calcula_mais_de_dez_andares(self):
-        precos = tabela_de_preco()
-        preco_tijolo = precos['tijolo']['12 furos']
-        preco_cimento = precos['cimento']['forte']
+        preco_tijolo = self.prices.brick_for('12 furos')
+        preco_cimento = self.prices.cement_for('forte')
 
         for andar in range(11, 21):
             cotacao = main(andares=andar)

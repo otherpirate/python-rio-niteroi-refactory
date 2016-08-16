@@ -1,9 +1,5 @@
-def tabela_de_preco():
-    return {
-        'tijolo': {'4 furos': 0.6, '8 furos': 0.7, '12 furos': 0.9},
-        'cimento': {'fino': 0.2, 'medio': 0.4, 'forte': 0.5},
-    }
-
+from __future__ import absolute_import
+from src_refactory.prices import Prices
 
 def define_cimento(configuracao):
     if configuracao['tijolo'] == '4 furos':
@@ -17,8 +13,8 @@ def define_cimento(configuracao):
 
 
 def cotacao_por_m2(configuracao):
-    precos = tabela_de_preco()
-    return precos['tijolo'][configuracao['tijolo']] + precos['cimento'][configuracao['cimento']]
+    prices = Prices()
+    return prices.brick_for(configuracao['tijolo']) + prices.cement_for(configuracao['cimento'])
 
 
 def main(andares):
