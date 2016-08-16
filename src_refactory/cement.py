@@ -15,27 +15,32 @@ def cement_factory(brick):
 
 class CementAbstract(object):
     BRICK_TYPE = []
-    def __init__(self, name):
+    def __init__(self, name, price):
         self._name = name
+        self._price = price
 
     @property
     def name(self):
         return self._name
 
+    @property
+    def price(self):
+        return self._price
+
 
 class CementTiny(CementAbstract):
     BRICK_TYPE = [BrickSmall]
     def __init__(self):
-        super(CementTiny, self).__init__('fino')
+        super(CementTiny, self).__init__('fino', 0.2)
 
 
 class CementMedium(CementAbstract):
     BRICK_TYPE = [BrickMedium]
     def __init__(self):
-        super(CementMedium, self).__init__('medio')
+        super(CementMedium, self).__init__('medio', 0.4)
 
 
 class CementStrong(CementAbstract):
     BRICK_TYPE = [BrickBig]
     def __init__(self):
-        super(CementStrong, self).__init__('forte')
+        super(CementStrong, self).__init__('forte', 0.5)

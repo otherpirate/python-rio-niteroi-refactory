@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-from src_refactory.prices import Prices
 from src_refactory.brick import brick_factory
 from src_refactory.cement import cement_factory
 
@@ -11,7 +10,6 @@ class Construction(object):
         self._brick = brick_factory(self.floors)
         self._cement = cement_factory(self._brick)
 
-
     @property
     def brick(self):
         return self._brick.name
@@ -20,8 +18,6 @@ class Construction(object):
     def cement(self):
         return self._cement.name
 
-
     @property
     def price_for_each_meter(self):
-        prices = Prices()
-        return prices.cement_for(self.cement) + prices.brick_for(self.brick)
+        return self._cement.price + self._brick.price
