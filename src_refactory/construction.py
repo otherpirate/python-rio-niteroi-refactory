@@ -1,28 +1,23 @@
 from __future__ import absolute_import
 from src_refactory.prices import Prices
+from src_refactory.brick import brick_factory
 
 
 class Construction(object):
 
     def __init__(self, floors):
         self.floors = floors
+        self._brick = brick_factory(self.floors)
+
 
     @property
     def brick(self):
-        if self.floors <= 3:
-            return '4 furos'
-        elif self.floors >= 4 and self.floors <= 10:
-            return '8 furos'
-        return '12 furos'
+        return self._brick.name
 
     @property
     def cement(self):
-        if self.brick == '4 furos':
-            return 'fino'
-        elif self.brick == '8 furos':
-            return 'medio'
-        elif self.brick == '12 furos':
-            return 'forte'
+        return self._brick.cement
+
 
     @property
     def price_for_each_meter(self):

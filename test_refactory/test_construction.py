@@ -39,7 +39,7 @@ class ConstructionTests(unittest.TestCase):
     def test_construction_prices(self):
         price = Prices()
 
-        for floors in range(0, 20):
+        for floors in range(1, 20):
             construction = Construction(floors)
             brick_price = price.brick_for(construction.brick)
             cement_price = price.cement_for(construction.cement)
