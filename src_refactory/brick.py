@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import sys
 import inspect
 
@@ -19,13 +20,8 @@ def brick_factory(floors):
 
 class BrickAbstract(object):
     MAX_FLOORS = 0
-    def __init__(self, name, cement):
+    def __init__(self, name):
         self._name = name
-        self._cement = cement
-
-    @property
-    def cement(self):
-        return self._cement
 
     @property
     def name(self):
@@ -35,16 +31,16 @@ class BrickAbstract(object):
 class BrickSmall(BrickAbstract):
     MAX_FLOORS = 3
     def __init__(self):
-        super(BrickSmall, self).__init__('4 furos', 'fino')
+        super(BrickSmall, self).__init__('4 furos')
 
 
 class BrickMedium(BrickAbstract):
     MAX_FLOORS = 10
     def __init__(self):
-        super(BrickMedium, self).__init__('8 furos', 'medio')
+        super(BrickMedium, self).__init__('8 furos')
 
 
 class BrickBig(BrickAbstract):
     MAX_FLOORS = 30
     def __init__(self):
-        super(BrickBig, self).__init__('12 furos', 'forte')
+        super(BrickBig, self).__init__('12 furos')
