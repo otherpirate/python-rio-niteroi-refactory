@@ -1,7 +1,8 @@
 from __future__ import absolute_import
 import unittest
 from src_refactory.construction import Construction
-from src_refactory.prices import Prices
+from src_refactory.brick import brick_factory
+from src_refactory.cement import cement_factory
 
 
 class ConstructionTests(unittest.TestCase):
@@ -13,36 +14,20 @@ class ConstructionTests(unittest.TestCase):
         self.assertIsInstance(construction.brick, str)
 
     def test_construction_one_to_three_floors(self):
-        cement = 'fino'
-        brick = '4 furos'
-        for floors in range(1, 4):
-            construction = Construction(floors)
-            self.assertEqual(cement, construction.cement)
-            self.assertEqual(brick, construction.brick)
+        for floors in range(1, 31):
+            brick = brick_factory(floors)
+            cement = cement_factory(brick)
 
-    def test_construction_four_to_ten_floors(self):
-        cement = 'medio'
-        brick = '8 furos'
-        for floors in range(4, 11):
             construction = Construction(floors)
-            self.assertEqual(cement, construction.cement)
-            self.assertEqual(brick, construction.brick)
-
-    def test_construction_more_than_ten(self):
-        cement = 'forte'
-        brick = '12 furos'
-        for floors in range(11, 20):
-            construction = Construction(floors)
-            self.assertEqual(cement, construction.cement)
-            self.assertEqual(brick, construction.brick)
+            self.assertEqual(cement.name, construction.cement)
+            self.assertEqual(brick.name, construction.brick)
 
     def test_construction_prices(self):
-        price = Prices()
-
         for floors in range(1, 20):
             construction = Construction(floors)
-            brick_price = price.brick_for(construction.brick)
-            cement_price = price.cement_for(construction.cement)
+
+            brick_price = construction._brick.price
+            cement_price = construction._cement.price
 
             self.assertEqual(
                 construction.price_for_each_meter, brick_price + cement_price
