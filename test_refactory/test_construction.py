@@ -13,17 +13,8 @@ class ConstructionTests(unittest.TestCase):
         self.assertIsInstance(construction.cement, str)
         self.assertIsInstance(construction.brick, str)
 
-    def test_construction_one_to_three_floors(self):
-        for floors in range(1, 31):
-            brick = brick_factory(floors)
-            cement = cement_factory(brick)
-
-            construction = Construction(floors)
-            self.assertEqual(cement.name, construction.cement)
-            self.assertEqual(brick.name, construction.brick)
-
     def test_construction_prices(self):
-        for floors in range(1, 20):
+        for floors in range(1, 91):
             construction = Construction(floors)
 
             brick_price = construction._brick.price
