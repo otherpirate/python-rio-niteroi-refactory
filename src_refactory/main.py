@@ -7,5 +7,4 @@ def calculate_price(floors):
 
 
 if __name__ == '__main__':
-    print (calculate_price(andares=4))
-
+    print (calculate_price(floors=4))
