@@ -49,3 +49,9 @@ class BrickBig(BrickAbstract):
     MAX_FLOORS = 30
     def __init__(self):
         super(BrickBig, self).__init__('12 furos', 0.9)
+
+
+class BrickHuge(BrickAbstract):
+    MAX_FLOORS = 90
+    def __init__(self):
+        super(BrickHuge, self).__init__('20 furos', 1.4)

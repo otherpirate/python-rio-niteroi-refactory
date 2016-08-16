@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import unittest
-from src_refactory.brick import brick_factory, BrickSmall, BrickMedium, BrickBig
+from src_refactory.brick import brick_factory, BrickSmall, BrickMedium, \
+    BrickBig, BrickHuge
 
 
 class BrickTests(unittest.TestCase):
@@ -20,6 +21,11 @@ class BrickTests(unittest.TestCase):
         self.assertEqual(brick.name, '12 furos')
         self.assertEqual(brick.price, 0.9)
 
+    def test_brick_huge(self):
+        brick = BrickHuge()
+        self.assertEqual(brick.name, '20 furos')
+        self.assertEqual(brick.price, 1.4)
+
     def test_factory_small(self):
         for floor in range(1, 4):
             brick = brick_factory(floor)
@@ -34,3 +40,8 @@ class BrickTests(unittest.TestCase):
         for floor in range(11, 31):
             brick = brick_factory(floor)
             self.assertIsInstance(brick, BrickBig)
+
+    def test_factory_huge(self):
+        for floor in range(31, 91):
+            brick = brick_factory(floor)
+            self.assertIsInstance(brick, BrickHuge)

@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 import sys
 import inspect
-from src_refactory.brick import BrickSmall, BrickMedium, BrickBig
+from src_refactory.brick import BrickSmall, BrickMedium, BrickBig, BrickHuge
 
 
 def cement_factory(brick):
@@ -44,3 +44,9 @@ class CementStrong(CementAbstract):
     BRICK_TYPE = [BrickBig]
     def __init__(self):
         super(CementStrong, self).__init__('forte', 0.5)
+
+
+class CementBrutal(CementAbstract):
+    BRICK_TYPE = [BrickHuge]
+    def __init__(self):
+        super(CementBrutal, self).__init__('brutal', 0.9)
