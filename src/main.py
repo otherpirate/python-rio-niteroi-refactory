@@ -1,7 +1,7 @@
 def tabela_de_preco():
     return {
-        'tijolo': {'4 furos': 0.6, '8 furos': 0.7, '12 furos': 0.9},
-        'cimento': {'fino': 0.2, 'medio': 0.4, 'forte': 0.5},
+        'tijolo': {'4 furos': 0.6, '8 furos': 0.7, '12 furos': 0.9, '20 furos': 1.4},
+        'cimento': {'fino': 0.2, 'medio': 0.4, 'forte': 0.5, 'brutal': 0.9},
     }
 
 
@@ -12,6 +12,8 @@ def define_cimento(configuracao):
         configuracao['cimento'] = 'medio'
     elif configuracao['tijolo'] == '12 furos':
         configuracao['cimento'] = 'forte'
+    elif configuracao['tijolo'] == '20 furos':
+        configuracao['cimento'] = 'brutal'
     else:
         configuracao['cimento'] = 'Nao existe'
 
@@ -29,8 +31,10 @@ def main(andares):
         configuracao['tijolo'] = '4 furos'
     elif andares >= 4 and andares <= 10:
         configuracao['tijolo'] = '8 furos'
-    else:
+    elif andares <= 30:
         configuracao['tijolo'] = '12 furos'
+    elif andares > 30:
+        configuracao['tijolo'] = '20 furos'
 
     # Define o cimento
     define_cimento(configuracao)
@@ -39,4 +43,4 @@ def main(andares):
 
 
 if __name__ == '__main__':
-    print (main(andares=4))
+    print (main(andares=40))
